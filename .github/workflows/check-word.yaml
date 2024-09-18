@@ -1,0 +1,26 @@
+name: Check for 'japao' in .txt file
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  check_word_in_file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check if 'japao' exists in .txt file
+      run: |
+        ls -la
+        FILE="test.txt"
+        if grep -iq "japao" "$FILE"; then
+          echo "'japao' found in $FILE"
+        else
+          echo "'japao' not found in $FILE"
+          exit 1
+        fi
